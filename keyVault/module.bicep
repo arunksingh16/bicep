@@ -10,8 +10,14 @@ param accessPolicies array
 param envName string
 @description('KV Secret: ')
 param kvSecretname array = [
-  'dummy2'
-  'dummy2'
+  {
+    SecName: 'sec1'
+    SecValue: 'dummy2'
+  }
+  {
+    SecName: 'sec1'
+    SecValue: 'dummy2'
+  }
 ]
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-11-01' = {
@@ -32,7 +38,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-11-01' = {
 }
 
 resource kvSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' =[for iSecret in kvSecretname: {
-  name: 'kvSecret-${iSecret}'
+  name: iSecret.SecName
   tags: {
     env: envName
   }
@@ -44,7 +50,7 @@ resource kvSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' =[for iSecret i
     //   nbf: int
     // }
     contentType: 'string'
-    value: 'string'
+    value: iSecret.SecValue
   }
 }]
 
