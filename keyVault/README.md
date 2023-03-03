@@ -39,9 +39,15 @@ module keyVaultModule 'module.bicep' = {
       }
     ]
     kvSecretname: [
-    'sec1'
-    'sec2'
-  ]
+      {
+        SecName: 'dummy1'
+        SecValue: 'test'
+      }
+      {
+        SecName: 'dummy2'
+        SecValue: 'test'
+      }
+    ]
   }
 }
 ```
